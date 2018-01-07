@@ -1,16 +1,17 @@
 module.exports = {
-    "extends": [ 
-        "airbnb",
-        "prettier/recommended"
-    ],
-    "plugins": [
-        "react",
-        "jsx-ally",
-        "import",
-        "prettier"
-    ],
-    "rules": {
-        "prettier/prettier": "error",
-        "react/jsx-filename-extension": 0
+  extends: ["airbnb", "prettier", "prettier/react", "prettier/standard"],
+  plugins: ["react", "jsx-a11y", "import", "prettier"],
+  env: {
+    es6: true
+  },
+  parserOptions: {
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true
     }
+  },
+  rules: {
+    "prettier/prettier": "error",
+    "react/jsx-filename-extension": 0
+  }
 };
