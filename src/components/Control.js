@@ -4,23 +4,31 @@ import { bindActionCreators } from "redux";
 import {
   changeRate,
   toggleUseMax,
-  setWidth,
-  setHeight
+  setDims,
+  randomGrid,
+  setDensity,
+  clearGrid,
+  setCellSize,
+  resetCycles
 } from "../actions/index";
 
 class Control extends Component {
   render() {
-    // variables dependant on useMax value - use ternaries
-
     const {
       useMax,
-      height,
-      width,
+      dims,
       rate,
+      density,
+      cellSize,
       changeRate,
+      lifeGrid,
       toggleUseMax,
-      setWidth,
-      setHeight
+      setDims,
+      randomGrid,
+      setDensity,
+      clearGrid,
+      setCellSize,
+      resetCycles
     } = this.props;
 
     return (
@@ -29,20 +37,25 @@ class Control extends Component {
         <label>Height</label>
         <input
           name="height"
+          className="control-field"
           type="number"
-          value={height}
-          onChange={e => setHeight(e.target.value)}
+          value={dims.height}
+          disabled={useMax}
+          onChange={e => setDims(Number(e.target.value), dims.width, density)}
         />
         <label>Width</label>
         <input
           name="Width"
+          className="control-field"
           type="number"
-          value={width}
-          onChange={e => setWidth(e.target.value)}
+          value={dims.width}
+          disabled={useMax}
+          onChange={e => setDims(dims.height, Number(e.target.value), density)}
         />
         <label>Use Max</label>
         <input
           name="usemax"
+          className="control-field"
           type="checkbox"
           checked={useMax}
           onChange={e => toggleUseMax()}
@@ -50,32 +63,61 @@ class Control extends Component {
         <label>Rate</label>
         <input
           name="Rate"
+          className="control-field"
           type="number"
           value={rate}
-          onChange={e => changeRate(e.target.value)}
+          onChange={e => changeRate(Number(e.target.value))}
         />
         <button>Start</button>
         <button>Stop</button>
-        <button>Clear</button>
-        <button>RANDOM</button>
-        <p>cycles: 0</p>
+        <button onClick={() => clearGrid()}>Clear</button>
+        <button onClick={() => resetCycles()}>Reset</button>
+        <button onClick={() => randomGrid(lifeGrid, density)}>RANDOM</button>
+        <label>Density</label>
+        <input
+          name="density"
+          className="control-field"
+          type="number"
+          value={density}
+          onChange={e => setDensity(Number(e.target.value))}
+        />
+        <label>Cell Size</label>
+        <input
+          name="cellSize"
+          className="control-field"
+          type="number"
+          value={cellSize}
+          onChange={e => setCellSize(Number(e.target.value))}
+        />
+        <p>cycles: {this.props.cycles}</p>
       </div>
     );
   }
 }
 
-function mapStateToProps({ maxDims, useMax, height, width, rate }) {
-  return {
-    maxDims,
-    useMax,
-    height,
-    width,
-    rate
-  };
+function mapStateToProps({
+  useMax,
+  dims,
+  rate,
+  density,
+  cellSize,
+  cycles,
+  lifeGrid
+}) {
+  return { useMax, dims, rate, density, cellSize, cycles, lifeGrid };
 }
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { changeRate, toggleUseMax, setWidth, setHeight },
+    {
+      changeRate,
+      toggleUseMax,
+      setDims,
+      randomGrid,
+      setDensity,
+      clearGrid,
+      setCellSize,
+      resetCycles
+    },
     dispatch
   );
 }

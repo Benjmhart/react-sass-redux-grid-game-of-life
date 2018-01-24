@@ -1,16 +1,20 @@
 import { combineReducers } from "redux";
-import MaxDimsReducer from "./reducer_maxDims";
 import UseMaxReducer from "./reducer_useMax";
-import HeightReducer from "./reducer_height";
-import WidthReducer from "./reducer_width";
+import DimsReducer from "./reducer_dims";
 import RateReducer from "./reducer_rate";
+import LifeGridReducer from "./reducer_lifeGrid";
+import DensityReducer from "./reducer_density";
+import CellSizeReducer from "./reducer_cellSize";
+import CyclesReducer from "./reducer_cycles";
 
 const rootReducer = combineReducers({
-  maxDims: MaxDimsReducer,
   useMax: UseMaxReducer,
-  height: HeightReducer,
-  width: WidthReducer,
-  rate: RateReducer
+  dims: DimsReducer,
+  rate: RateReducer,
+  lifeGrid: LifeGridReducer,
+  density: DensityReducer,
+  cellSize: CellSizeReducer,
+  cycles: CyclesReducer
 });
 
 export default rootReducer;

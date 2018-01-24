@@ -1,5 +1,9 @@
-export const SET_MAX = 'SET_MAX';
-export const SET_HEIGHT = 'SET_HEIGHT';
-export const SET_WIDTH = 'SET_WIDTH';
-export const TOGGLE_USEMAX = 'TOGGLE_USEMAX';
-export const CHANGE_RATE = 'CHANGE_RATE';
+export const SET_DIMS = "SET_DIMS";
+export const TOGGLE_USEMAX = "TOGGLE_USEMAX";
+export const CHANGE_RATE = "CHANGE_RATE";
+export const RANDOM_GRID = "RANDOM_GRID";
+export const CLEAR_GRID = "CLEAR_GRID";
+export const SET_DENSITY = "SET_DENSITY";
+export const SET_CELLSIZE = "SET_CELLSIZE";
+export const INCREMENT_CYCLES = "INCREMENT_CYCLES";
+export const RESET_CYCLES = "RESET_CYCLES";

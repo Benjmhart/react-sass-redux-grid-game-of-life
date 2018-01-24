@@ -1,40 +1,74 @@
-import { SET_MAX, SET_HEIGHT, SET_WIDTH, TOGGLE_USEMAX, CHANGE_RATE } from './action_types';
+import {
+  SET_DIMS,
+  TOGGLE_USEMAX,
+  CHANGE_RATE,
+  RANDOM_GRID,
+  CLEAR_GRID,
+  SET_DENSITY,
+  SET_CELLSIZE,
+  INCREMENT_CYCLES,
+  RESET_CYCLES
+} from "./action_types";
 
-
-export function setMax(maxWidth, maxHeight) {
-	console.log(`setmax action triggered with width: ${maxWidth} height: ${maxHeight}`)
-	const payload = { maxWidth, maxHeight }
-	console.log(payload);
-
-	return {
-		type: SET_MAX,
-		payload
-	}
-}
-
-export function setHeight(height) {
-	return {
-		type: SET_HEIGHT,
-		payload: height
-	}
-}
-
-export function setWidth(Width) {
-	return {
-		type: SET_WIDTH,
-		payload: Width
-	}
+export function setDims(height, width, density) {
+  const payload = {
+    height,
+    width,
+    density
+  };
+  return {
+    type: SET_DIMS,
+    payload
+  };
 }
 
 export function toggleUseMax() {
-	return {
-		type: TOGGLE_USEMAX
-	}
+  return {
+    type: TOGGLE_USEMAX
+  };
 }
 
 export function changeRate(rate) {
-	return {
-		type: CHANGE_RATE,
-		payload: rate
-	}
+  const payload = rate < 150 ? 150 : rate;
+  return {
+    type: CHANGE_RATE,
+    payload
+  };
+}
+
+export function randomGrid(arr, density) {
+  console.log(density);
+  return {
+    type: RANDOM_GRID,
+    payload: density
+  };
+}
+
+export function setDensity(payload) {
+  return {
+    type: SET_DENSITY,
+    payload
+  };
+}
+
+export function clearGrid() {
+  return {
+    type: CLEAR_GRID
+  };
+}
+
+export function setCellSize(value) {
+  const payload = value < 15 ? 15 : value;
+  return {
+    type: SET_CELLSIZE,
+    payload
+  };
+}
+
+export function resetCycles() {
+  return { type: RESET_CYCLES };
+}
+
+export function incrementCycles() {
+  return { type: INCREMENT_CYCLES };
 }
