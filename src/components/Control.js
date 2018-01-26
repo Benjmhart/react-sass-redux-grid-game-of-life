@@ -17,7 +17,9 @@ import {
 
 class Control extends Component {
   componentDidMount() {
-    setInterval(() => this.props.incrementCycles(), this.props.rate);
+    const time = this.props.rate*1000
+    setInterval(() => {
+   if (this.props.gameOn){this.props.incrementCycles()}}, time);
   }
   render() {
     const {
@@ -34,7 +36,9 @@ class Control extends Component {
       setDensity,
       clearGrid,
       setCellSize,
-      resetCycles
+      resetCycles,
+      turnGameOn,
+      turnGameOff
     } = this.props;
 
     return (
@@ -108,9 +112,10 @@ function mapStateToProps({
   density,
   cellSize,
   cycles,
-  lifeGrid
+  lifeGrid,
+  gameOn
 }) {
-  return { useMax, dims, rate, density, cellSize, cycles, lifeGrid };
+  return { useMax, dims, rate, density, cellSize, cycles, lifeGrid, gameOn };
 }
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ changeRate, toggleUseMax, setDims, randomGrid, setDensity, clearGrid, setCellSize, resetCycles, turnGameOn, turnGameOff, incrementCycles }, dispatch);

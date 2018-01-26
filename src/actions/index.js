@@ -40,7 +40,6 @@ export function changeRate(rate) {
 }
 
 export function randomGrid(arr, density) {
-  console.log(density);
   return {
     type: RANDOM_GRID,
     payload: density

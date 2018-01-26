@@ -22,23 +22,18 @@ class LifeGridContainer extends Component {
         nextProps.cellSize !== this.props.cellSize) &&
       nextProps.useMax === true
     ) {
-      console.log("LifeGridContainer will receive useMax prop true");
       this.redermineSize(true);
     }
   }
   redetermineSize(max = this.props.useMax) {
-    console.log("redetermineSize Fired");
     if (this.el) {
       const { clientWidth, clientHeight, offsetTop } = this.el;
 
       const w = Math.floor(clientWidth / this.props.cellSize);
       const h = Math.floor((clientHeight - offsetTop) / this.props.cellSize);
-      console.log(`redetermineSize finds height: ${h} and width: ${w}`);
       if (max) {
-        console.log("triggering SetDims with max dims");
         this.props.setDims(h, w, this.props.density);
       } else {
-        console.log("triggering SetDims with user dims");
         this.props.setDims(
           this.props.dims.height,
           this.props.dims.width,
