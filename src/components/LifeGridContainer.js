@@ -26,11 +26,12 @@ class LifeGridContainer extends Component {
     }
   }
   redetermineSize(max = this.props.useMax) {
+    console.log('resize fired')
     if (this.el) {
-      const { clientWidth, clientHeight, offsetTop } = this.el;
+      const { clientWidth, clientHeight, offsetTop} = this.el;
 
-      const w = Math.floor(clientWidth / this.props.cellSize);
-      const h = Math.floor((clientHeight - offsetTop) / this.props.cellSize);
+      const w = Math.floor(clientWidth / (this.props.cellSize + 2));
+      const h = Math.floor((clientHeight-offsetTop) / (this.props.cellSize + 2));
       if (max) {
         this.props.setDims(h, w, this.props.density);
       } else {
@@ -52,15 +53,15 @@ class LifeGridContainer extends Component {
   }
   render() {
     const style = {
-      position: "fixed",
+      position: 'fixed',
       width: "100%",
       height: "100%",
       display: "grid",
       gridTemplateColumns: `repeat(${this.props.dims.width}, minmax(${this.props
         .cellSize - 2}px, 1fr))`,
       gridTemplateRows: `repeat(${this.props.dims.height}, minmax(${this.props
-        .cellSize - 10}px, ${this.props.cellSize + 1}px))`,
-      gridGap: "1px"
+        .cellSize - 10}px, 1fr))`,
+      gridGap: "1px",
     };
     return (
       <div
