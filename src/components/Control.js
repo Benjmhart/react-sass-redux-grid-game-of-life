@@ -195,7 +195,7 @@ Control.propTypes = {
   density: PropTypes.number.isRequired,
   cellSize: PropTypes.number.isRequired,
   cycles: PropTypes.number.isRequired,
-  lifeGrid: PropTypes.arrayOf(PropTypes.number).isRequired,
+  lifeGrid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   gameOn: PropTypes.bool.isRequired
 };
 

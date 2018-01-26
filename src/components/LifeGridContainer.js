@@ -30,10 +30,10 @@ class LifeGridContainer extends Component {
     if (this.el) {
       const { clientWidth, clientHeight, offsetTop } = this.el;
 
-      const w = Math.floor(clientWidth / (this.props.cellSize + 2));
-      const h = Math.floor(
-        (clientHeight - offsetTop) / (this.props.cellSize + 2)
-      );
+      const w = Math.floor(clientWidth / (this.props.cellSize + 8));
+      const h = (Math.floor((clientHeight - offsetTop) / (this.props.cellSize)));
+      
+      console.log(`new grid created with h:${h} w:${w} built by dividing div height:${clientHeight - offsetTop} comprised of clientheight ${clientHeight} minus ${offsetTop}by cellize with padding: ${this.props.cellSize + 8}`)
       if (max) {
         this.props.setDims(h, w, this.props.density);
       } else {
@@ -48,22 +48,23 @@ class LifeGridContainer extends Component {
   renderLifeGrid() {
     const nodelist = this.props.lifeGrid.map((row, x) =>
       row.map((cell, y) => (
-        <LifeGridItem key={Symbol(x + y)} x={x} y={y} value={cell} />
+        <LifeGridItem key={`${x}-${y}-${new Date().getTime()}`} x={x} y={y} value={cell} />
       ))
     );
     return nodelist;
   }
   render() {
+    
     const style = {
-      position: "fixed",
+      flex: '1 1 auto',
       width: "100%",
       height: "100%",
       display: "grid",
       gridTemplateColumns: `repeat(${this.props.dims.width}, minmax(${this.props
-        .cellSize - 2}px, 1fr))`,
+        .cellSize}px, 1fr))`,
       gridTemplateRows: `repeat(${this.props.dims.height}, minmax(${this.props
-        .cellSize - 10}px, 1fr))`,
-      gridGap: "1px"
+        .cellSize - 2}px, 1fr))`,
+      gridGap: "1px",
     };
     return (
       <div
@@ -95,6 +96,6 @@ LifeGridContainer.propTypes = {
   }).isRequired,
   density: PropTypes.number.isRequired,
   cellSize: PropTypes.number.isRequired,
-  lifeGrid: PropTypes.arrayOf(PropTypes.number).isRequired
+  lifeGrid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LifeGridContainer);
