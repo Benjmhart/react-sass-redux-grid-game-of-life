@@ -26,6 +26,5 @@ export default function getNeighbors(x, y, arr) {
     },0)
     return rowTotal+totalSum;
   }, 0)
-  console.log(`getNeighbors returned ${neighborsQty} neighbors for cell ${y}, ${x}`)
   return neighborsQty;
 }

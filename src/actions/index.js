@@ -32,7 +32,7 @@ export function toggleUseMax() {
 }
 
 export function changeRate(rate) {
-  const payload = rate < 150 ? 150 : rate;
+  const payload = rate < 300 ? 300 : rate;
   return {
     type: CHANGE_RATE,
     payload

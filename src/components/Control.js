@@ -16,10 +16,31 @@ import {
 } from "../actions/index";
 
 class Control extends Component {
+  constructor(props) {
+    super(props);
+    this.timer = this.timer.bind(this)
+    this.state = {IntervalId: ''}
+  }
   componentDidMount() {
-    const time = this.props.rate*1000
-    setInterval(() => {
-   if (this.props.gameOn){this.props.incrementCycles()}}, time);
+   this.timer(this.props.rate);
+  }
+  componentWillUnmount(){
+    clearInterval(this.state.intervalId);
+  }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.rate !== this.props.rate){
+      clearInterval(this.state.intervalId);
+      this.timer(nextProps.rate);
+    }
+  }
+  
+  timer(rate) {
+    
+    const intervalId = setInterval(() =>{
+      if (this.props.gameOn){this.props.incrementCycles()}}
+      , rate);
+    
+    this.setState({ intervalId: intervalId })
   }
   render() {
     const {

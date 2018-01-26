@@ -69,8 +69,6 @@ export default function(state = [], action) {
           else if (cell === 0 && (neighbors <3 || neighbors>3)) {
             newVal = 0;
           }
-            console.log(` modified cell ${x}, ${y} value: ${newVal} original cell value: ${cell} and  neighbors:${neighbors}`)
-          
           return newVal;
         });
       });
