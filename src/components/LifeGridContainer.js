@@ -48,8 +48,8 @@ class LifeGridContainer extends Component {
     }
   }
   renderLifeGrid() {
-    const nodelist = this.props.lifeGrid.map((row, y) =>
-      row.map((cell, x) => (
+    const nodelist = this.props.lifeGrid.map((row, x) =>
+      row.map((cell, y) => (
         <LifeGridItem key={`${x}, ${y}`} x={x} y={y} value={cell} />
       ))
     );

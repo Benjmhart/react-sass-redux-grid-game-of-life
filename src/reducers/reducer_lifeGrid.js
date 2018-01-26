@@ -1,4 +1,11 @@
-import { SET_DIMS, RANDOM_GRID, CLEAR_GRID } from "../actions/action_types";
+import {
+  SET_DIMS,
+  RANDOM_GRID,
+  CLEAR_GRID,
+  ACTIVATE_CELL,
+  INCREMENT_CYCLES
+} from "../actions/action_types";
+import getNeighbors from "../helper_getNeighbors";
 
 function randomize(arr, density) {
   const choices = [0, 2];
@@ -40,6 +47,43 @@ export default function(state = [], action) {
       const newgrid = [...state];
       const clearedgrid = newgrid.map(row => row.map(() => 0));
       return clearedgrid;
+    }
+    case ACTIVATE_CELL: {
+      console.log("activateCell payload received by grid reducer");
+      const { x, y } = action.payload;
+      const newgrid = [...state];
+      newgrid[x][y] = newgrid[x][y] === 0 ? 2 : 0;
+      return newgrid;
+    }
+    case INCREMENT_CYCLES: {
+      // THINGS!
+      const grid = [...state];
+      const futureGrid = grid.map((row, y) => {
+        return row.map((cell, x) => {
+          const neighbors = getNeighbors(x, y, grid);
+          if (cell > 0 && neighbors === 3) {
+            return 3;
+          }
+          if (cell > 0 && neighbors < 1 && neighbors > 4) {
+            return 2;
+          }
+          if (cell > 0 && neighbors > 3) {
+            return 3;
+          }
+          if (cell === 0 && neighbors === 3) {
+            return 4;
+          }
+        });
+      });
+      const reducedGrid = futureGrid.map(row => {
+        return row.map(cell => {
+          if (cell > 2) {
+            return cell - 3;
+          }
+          return cell;
+        });
+      });
+      return reducedGrid;
     }
     default:
       return state;

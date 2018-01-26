@@ -6,6 +6,7 @@ import LifeGridReducer from "./reducer_lifeGrid";
 import DensityReducer from "./reducer_density";
 import CellSizeReducer from "./reducer_cellSize";
 import CyclesReducer from "./reducer_cycles";
+import gameOnReducer from "./reducer_gameOn";
 
 const rootReducer = combineReducers({
   useMax: UseMaxReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   lifeGrid: LifeGridReducer,
   density: DensityReducer,
   cellSize: CellSizeReducer,
-  cycles: CyclesReducer
+  cycles: CyclesReducer,
+  gameOn: gameOnReducer
 });
 
 export default rootReducer;

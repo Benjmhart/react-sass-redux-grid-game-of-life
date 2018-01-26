@@ -7,3 +7,6 @@ export const SET_DENSITY = "SET_DENSITY";
 export const SET_CELLSIZE = "SET_CELLSIZE";
 export const INCREMENT_CYCLES = "INCREMENT_CYCLES";
 export const RESET_CYCLES = "RESET_CYCLES";
+export const ACTIVATE_CELL = "ACTIVATE_CELL";
+export const TURN_GAME_ON = "TURN_GAME_ON";
+export const TURN_GAME_OFF = "TURN_GAME_OFF";

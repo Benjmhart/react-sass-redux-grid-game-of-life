@@ -1,6 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { activateCell } from "../actions/index";
 
-const LifeGridItem = ({ x, y, value }) => {
+const LifeGridItem = ({ x, y, value, activateCell }) => {
+  const handleClick = () => {
+    console.log(`passing activateCell with x=${x} and y=${y}`);
+    activateCell(x,y)
+  };
+
   let classes;
   switch (value) {
     case 2: {
@@ -16,7 +24,11 @@ const LifeGridItem = ({ x, y, value }) => {
       break;
     }
   }
-  return <div className={classes} />;
+  return <div className={classes} onClick={() => handleClick()} />;
 };
 
-export default LifeGridItem;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ activateCell }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(LifeGridItem);

@@ -9,10 +9,16 @@ import {
   setDensity,
   clearGrid,
   setCellSize,
-  resetCycles
+  resetCycles,
+  turnGameOn,
+  turnGameOff,
+  incrementCycles
 } from "../actions/index";
 
 class Control extends Component {
+  componentDidMount() {
+    setInterval(() => this.props.incrementCycles(), this.props.rate);
+  }
   render() {
     const {
       useMax,
@@ -68,8 +74,8 @@ class Control extends Component {
           value={rate}
           onChange={e => changeRate(Number(e.target.value))}
         />
-        <button>Start</button>
-        <button>Stop</button>
+        <button onClick={() => turnGameOn()}>Start</button>
+        <button onClick={() => turnGameOff()}>Stop</button>
         <button onClick={() => clearGrid()}>Clear</button>
         <button onClick={() => resetCycles()}>Reset</button>
         <button onClick={() => randomGrid(lifeGrid, density)}>RANDOM</button>
@@ -107,19 +113,7 @@ function mapStateToProps({
   return { useMax, dims, rate, density, cellSize, cycles, lifeGrid };
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      changeRate,
-      toggleUseMax,
-      setDims,
-      randomGrid,
-      setDensity,
-      clearGrid,
-      setCellSize,
-      resetCycles
-    },
-    dispatch
-  );
+  return bindActionCreators({ changeRate, toggleUseMax, setDims, randomGrid, setDensity, clearGrid, setCellSize, resetCycles, turnGameOn, turnGameOff, incrementCycles }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Control);

@@ -7,7 +7,10 @@ import {
   SET_DENSITY,
   SET_CELLSIZE,
   INCREMENT_CYCLES,
-  RESET_CYCLES
+  RESET_CYCLES,
+  ACTIVATE_CELL,
+  TURN_GAME_ON,
+  TURN_GAME_OFF
 } from "./action_types";
 
 export function setDims(height, width, density) {
@@ -71,4 +74,18 @@ export function resetCycles() {
 
 export function incrementCycles() {
   return { type: INCREMENT_CYCLES };
+}
+
+export function activateCell(x, y) {
+  return {
+    type: ACTIVATE_CELL,
+    payload: { x, y }
+  };
+}
+export function turnGameOn() {
+  return { type: TURN_GAME_ON };
+}
+
+export function turnGameOff() {
+  return { type: TURN_GAME_OFF };
 }
