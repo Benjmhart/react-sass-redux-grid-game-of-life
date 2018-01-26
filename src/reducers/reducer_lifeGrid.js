@@ -10,7 +10,7 @@ import getNeighbors from "../helper_getNeighbors";
 function randomize(arr, density) {
   const choices = [0, 2];
   const newGrid = arr.map(row =>
-    row.map(cell => {
+    row.map(() => {
       const choice = choices[Math.floor(Math.random() * (density * 0.02) * 2)];
       if (choice === undefined) {
         return 2;
@@ -49,29 +49,23 @@ export default function(state = [], action) {
     case INCREMENT_CYCLES: {
       // THINGS!
       const grid = [...state];
-      const futureGrid = grid.map((row, x) => {
-        return row.map((cell, y) => {
+      const futureGrid = grid.map((row, x) =>
+        row.map((cell, y) => {
           const neighbors = getNeighbors(x, y, grid);
           let newVal;
-          // survivor
+          // survivor, else death, else newborn, else stay dead
           if (cell > 0 && (neighbors === 3 || neighbors === 2)) {
             newVal = 2;
-          }
-          // death
-          else if (cell > 0 && (neighbors < 2 || neighbors > 3)) {
+          } else if (cell > 0 && (neighbors < 2 || neighbors > 3)) {
             newVal = 0;
-          }
-          // birth
-          else if (cell === 0 && neighbors === 3) {
+          } else if (cell === 0 && neighbors === 3) {
             newVal = 1;
-          }
-          // stay dead
-          else if (cell === 0 && (neighbors <3 || neighbors>3)) {
+          } else if (cell === 0 && (neighbors < 3 || neighbors > 3)) {
             newVal = 0;
           }
           return newVal;
-        });
-      });
+        })
+      );
       return futureGrid;
     }
     default:

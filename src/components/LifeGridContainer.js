@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 import { setDims } from "../actions/index";
 import LifeGridItem from "./LifeGridItem";
 
@@ -26,12 +27,13 @@ class LifeGridContainer extends Component {
     }
   }
   redetermineSize(max = this.props.useMax) {
-    console.log('resize fired')
     if (this.el) {
-      const { clientWidth, clientHeight, offsetTop} = this.el;
+      const { clientWidth, clientHeight, offsetTop } = this.el;
 
       const w = Math.floor(clientWidth / (this.props.cellSize + 2));
-      const h = Math.floor((clientHeight-offsetTop) / (this.props.cellSize + 2));
+      const h = Math.floor(
+        (clientHeight - offsetTop) / (this.props.cellSize + 2)
+      );
       if (max) {
         this.props.setDims(h, w, this.props.density);
       } else {
@@ -46,14 +48,14 @@ class LifeGridContainer extends Component {
   renderLifeGrid() {
     const nodelist = this.props.lifeGrid.map((row, x) =>
       row.map((cell, y) => (
-        <LifeGridItem key={`${x}, ${y}`} x={x} y={y} value={cell} />
+        <LifeGridItem key={Symbol(x + y)} x={x} y={y} value={cell} />
       ))
     );
     return nodelist;
   }
   render() {
     const style = {
-      position: 'fixed',
+      position: "fixed",
       width: "100%",
       height: "100%",
       display: "grid",
@@ -61,7 +63,7 @@ class LifeGridContainer extends Component {
         .cellSize - 2}px, 1fr))`,
       gridTemplateRows: `repeat(${this.props.dims.height}, minmax(${this.props
         .cellSize - 10}px, 1fr))`,
-      gridGap: "1px",
+      gridGap: "1px"
     };
     return (
       <div
@@ -76,7 +78,7 @@ class LifeGridContainer extends Component {
     );
   }
 }
-// proptypes
+
 function mapStateToProps({ useMax, dims, lifeGrid, density, cellSize }) {
   return { useMax, dims, lifeGrid, density, cellSize };
 }
@@ -84,5 +86,15 @@ function mapStateToProps({ useMax, dims, lifeGrid, density, cellSize }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ setDims }, dispatch);
 }
-
+LifeGridContainer.propTypes = {
+  setDims: PropTypes.func.isRequired,
+  useMax: PropTypes.bool.isRequired,
+  dims: PropTypes.shape({
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired
+  }).isRequired,
+  density: PropTypes.number.isRequired,
+  cellSize: PropTypes.number.isRequired,
+  lifeGrid: PropTypes.arrayOf(PropTypes.number).isRequired
+};
 export default connect(mapStateToProps, mapDispatchToProps)(LifeGridContainer);

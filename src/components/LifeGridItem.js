@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 import { activateCell } from "../actions/index";
 
 const LifeGridItem = ({ x, y, value, activateCell }) => {
   const handleClick = () => {
-    console.log(`passing activateCell with x=${x} and y=${y}`);
-    activateCell(x,y)
+    activateCell(x, y);
   };
 
   let classes;
@@ -30,5 +30,10 @@ const LifeGridItem = ({ x, y, value, activateCell }) => {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ activateCell }, dispatch);
 }
-
+LifeGridItem.propTypes = {
+  activateCell: PropTypes.func.isRequired,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
+};
 export default connect(null, mapDispatchToProps)(LifeGridItem);
