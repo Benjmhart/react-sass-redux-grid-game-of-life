@@ -6,7 +6,7 @@ import {
   INCREMENT_CYCLES
 } from "../actions/action_types";
 import getNeighbors from "../helper_getNeighbors";
-
+// randomizes a board,  used in several cases
 function randomize(arr, density) {
   const choices = [0, 2];
   const newGrid = arr.map(row =>
@@ -47,7 +47,8 @@ export default function(state = [], action) {
       return newgrid;
     }
     case INCREMENT_CYCLES: {
-      // THINGS!
+      // all of the events that happen when the timer elapses, moves the game forward one generation
+      // X = ROWS STARTING AT TOP=0 Y=COLUMNS STARTING AT LEFT=0 
       const grid = [...state];
       const futureGrid = grid.map((row, x) =>
         row.map((cell, y) => {

@@ -12,7 +12,7 @@ import {
   TURN_GAME_ON,
   TURN_GAME_OFF
 } from "./action_types";
-
+//called when the game starts, when the window is resized, or whenever the user changes dimensions
 export function setDims(height, width, density) {
   const payload = {
     height,
@@ -30,7 +30,7 @@ export function toggleUseMax() {
     type: TOGGLE_USEMAX
   };
 }
-
+//the rate of the game,  cannot be below 300ms for performance reasons
 export function changeRate(rate) {
   const payload = rate < 300 ? 300 : rate;
   return {

@@ -16,6 +16,14 @@ import {
   incrementCycles
 } from "../actions/index";
 
+
+/*
+GENERAL:
+this component is used to handle all of the controls on the header, it is also 
+responsible  for running the timer which fires INCREMENT_CYCLE actions which 
+allows the game of life to progress.
+*/
+
 class Control extends Component {
   constructor(props) {
     super(props);
@@ -23,9 +31,11 @@ class Control extends Component {
     this.state = { intervalId: "" };
   }
   componentDidMount() {
+    //starts the game onload
     this.timer(this.props.rate);
   }
   componentWillReceiveProps(nextProps) {
+    //restarts the timer if the user changes the rate
     if (nextProps.rate !== this.props.rate) {
       clearInterval(this.state.intervalId);
       this.timer(nextProps.rate);
@@ -33,10 +43,12 @@ class Control extends Component {
   }
 
   componentWillUnmount() {
+    //removes timer/stops game
     clearInterval(this.state.intervalId);
   }
 
   timer(rate) {
+    //constructs the timer and sticks it into component state so it can be 
     const intervalId = setInterval(() => {
       if (this.props.gameOn) {
         this.props.incrementCycles();
@@ -46,6 +58,7 @@ class Control extends Component {
     this.setState({ intervalId });
   }
   render() {
+    //big destructure
     const {
       useMax,
       dims,
@@ -112,8 +125,16 @@ class Control extends Component {
             onChange={e => changeRate(Number(e.target.value))}
           />
         </label>
-        <button onClick={() => turnGameOn()}>Start</button>
-        <button onClick={() => turnGameOff()}>Stop</button>
+        <button onClick={() => {
+          turnGameOn();
+          this.timer(rate);
+          }}
+        >Start</button>
+        <button onClick={() => {
+            clearInterval(this.state.intervalId);
+            turnGameOff();
+          }}
+        >Stop</button>
         <button onClick={() => clearGrid()}>Clear</button>
         <button onClick={() => resetCycles()}>Reset</button>
         <button onClick={() => randomGrid(lifeGrid, density)}>RANDOM</button>

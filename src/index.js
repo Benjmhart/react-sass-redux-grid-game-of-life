@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore } from "redux";
 
 import "./styles/index.css";
 import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
 import reducers from "./reducers";
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
-
+ const store = createStore(
+   reducers, /* preloadedState, */
+   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+ );
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById("root")

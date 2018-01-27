@@ -1,3 +1,9 @@
+
+/* 
+iterates a 2d array and returns the number of 2 dimensional neighbors to the 
+x(row) and y(columns) provided,  the neighbors must have a value of > 0 to be 
+counted as a neighbor
+*/
 export default function getNeighbors(x, y, arr) {
   const neighborsQty = arr.reduce((totalSum, row, rowIndex) => {
     if (rowIndex > x + 1 || rowIndex < x - 1) {
