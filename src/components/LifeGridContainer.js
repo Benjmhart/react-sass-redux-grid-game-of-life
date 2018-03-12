@@ -77,7 +77,6 @@ class LifeGridContainer extends Component {
         .cellSize}px, 1fr))`,
       gridTemplateRows: `repeat(${this.props.dims.height}, minmax(${this.props
         .cellSize - 2}px, 1fr))`,
-      gridGap: "1px",
     };
     
     return (
